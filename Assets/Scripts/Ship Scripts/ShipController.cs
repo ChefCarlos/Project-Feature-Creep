@@ -49,64 +49,16 @@ public class ShipController : MonoBehaviour
 
     void Accelerate()
     {
-
-        if (currentForwardSpeed < maxForwardSpeed && forwardInput > 0)
-        {
-            currentForwardSpeed += accelerateSpeed * forwardInput;
-        }
-        else if (forwardInput == 0 && currentForwardSpeed != 0)
-        {
-            currentForwardSpeed = Mathf.SmoothStep(currentForwardSpeed, 0, accelerateSpeed / 10);
-        }
-        else if (currentForwardSpeed > -maxForwardSpeed && forwardInput < 0)
-        {
-            currentForwardSpeed += accelerateSpeed * forwardInput;
-        }
+        currentForwardSpeed = movementController(currentForwardSpeed, forwardInput, accelerateSpeed, maxForwardSpeed,10);
 
         rbody.velocity = transform.forward * currentForwardSpeed;
     }
 
     void Rotate()
     {
-        //Turn Sideways   
-        if (currentYawSpeed < maxTurnSpeed && turnInput > 0)
-        {
-            currentYawSpeed += turnSpeed * turnInput;
-        }
-        else if (turnInput == 0 && currentYawSpeed != 0)
-        {
-            currentYawSpeed = Mathf.SmoothStep(currentYawSpeed, 0, turnSpeed / 2);
-        }
-        else if (currentYawSpeed > -maxTurnSpeed && turnInput < 0)
-        {
-            currentYawSpeed += turnSpeed * turnInput;
-        }
-        //Tilt Forward/Back
-        if (currentPitchSpeed < maxTurnSpeed && tiltInput > 0)
-        {
-            currentPitchSpeed += turnSpeed * tiltInput;
-        }
-        else if (tiltInput == 0 && currentPitchSpeed != 0)
-        {
-            currentPitchSpeed = Mathf.SmoothStep(currentPitchSpeed, 0, turnSpeed / 2);
-        }
-        else if (currentPitchSpeed > -maxTurnSpeed && tiltInput < 0)
-        {
-            currentPitchSpeed += turnSpeed * tiltInput;
-        }
-        //Rotate Sideways
-        if (currentRotateSpeed < maxTurnSpeed && rotateInput > 0)
-        {
-            currentRotateSpeed += turnSpeed * rotateInput;
-        }
-        else if (rotateInput == 0 && currentRotateSpeed != 0)
-        {
-            currentRotateSpeed = Mathf.SmoothStep(currentRotateSpeed, 0, turnSpeed / 2);
-        }
-        else if (currentRotateSpeed > -maxTurnSpeed && rotateInput < 0)
-        {
-            currentRotateSpeed += turnSpeed * rotateInput;
-        }
+        currentYawSpeed = movementController(currentYawSpeed, turnInput, turnSpeed, maxTurnSpeed,2);
+        currentPitchSpeed = movementController(currentPitchSpeed, tiltInput, turnSpeed, maxTurnSpeed,2);
+        currentRotateSpeed = movementController(currentRotateSpeed, rotateInput, turnSpeed, maxTurnSpeed,2);
 
 
         float yaw = currentYawSpeed  * Time.deltaTime;
@@ -114,6 +66,26 @@ public class ShipController : MonoBehaviour
         float rotate = currentRotateSpeed  * Time.deltaTime;
 
         transform.Rotate(-pitch, yaw, rotate);
+    }
+
+    private float movementController(float currMoveSpeed, float input, float moveRate, float maxMoveSpeed, float forwardOrTurningDigit)
+    {
+        if (currMoveSpeed < maxMoveSpeed && input > 0)
+        {
+            currMoveSpeed += moveRate * input;
+            return currMoveSpeed;
+        }
+        else if (input == 0 && currMoveSpeed != 0)
+        {
+            currMoveSpeed = Mathf.SmoothStep(currMoveSpeed, 0, moveRate / forwardOrTurningDigit);
+            return currMoveSpeed;
+        }
+        else if (currMoveSpeed > -maxMoveSpeed && input < 0)
+        {
+            currMoveSpeed += moveRate * input;
+            return currMoveSpeed;
+        }
+        return currMoveSpeed;
     }
 
 
