@@ -6,18 +6,12 @@ public class CameraController : MonoBehaviour
 {
 
     public float distance = 400.0f;
-    public Vector3 offsetFromTarget = new Vector3(0f, 0f, 0f);
+    public Vector3 offsetFromTarget = new Vector3(1f, 1f, 1f);
     public Transform[] seatCameras;
     public Transform player;
 
-    //ShipController shipController;
-
     private float currentX = 0.0f;
     private float currentY = 0.0f;
-    //private float sensitivityX = 4.0f;
-    //private float sensitivityy = 1.0f;
-
-    private int currentSeat = 0;
 
     private Transform target;
 
@@ -29,16 +23,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         SetCameraTarget(player);
-    }
-
-    private void changeSeatCamera()
-    {
-        currentSeat += 1;
-        if (currentSeat == seatCameras.Length)
-        {
-            currentSeat = 0;
-        }
-        SetCameraTarget(seatCameras[currentSeat]);
     }
 
 
@@ -61,17 +45,12 @@ public class CameraController : MonoBehaviour
     {
         MoveToTarget();
         LookAtTarget();
-        
-    }
-
-    private void getInput()
-    {
-        //get input to change seat
     }
 
     void MoveToTarget()
     {
-        transform.position = target.position + (target.rotation * offsetFromTarget);
+        Debug.Log(target.position);
+        transform.position = target.position;
     }
 
     void LookAtTarget()

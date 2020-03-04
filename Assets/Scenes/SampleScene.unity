@@ -455,6 +455,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &762820721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 762820722}
+  - component: {fileID: 762820723}
+  m_Layer: 0
+  m_Name: Seat Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &762820722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762820721}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1730692097}
+  - {fileID: 925966587}
+  m_Father: {fileID: 1865432720}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &762820723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762820721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54ddc04ba12ac049ab89763ec8d98a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &925966586
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +529,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1657553623}
-  m_Father: {fileID: 1865432720}
+  m_Father: {fileID: 762820722}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &925966588
@@ -500,6 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfSeat: 1
+  seatOccupied: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,8 +775,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1079751990}
-  m_Father: {fileID: 1865432720}
-  m_RootOrder: 2
+  m_Father: {fileID: 762820722}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1730692098
 MonoBehaviour:
@@ -745,6 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfSeat: 0
+  seatOccupied: 0
 --- !u!1001 &1749651977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -812,6 +859,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship_with_cannons
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 36dc5b37dc62b7f4aaf3929497e30934,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 782023234881082834, guid: 36dc5b37dc62b7f4aaf3929497e30934,
         type: 3}
       propertyPath: m_Name
@@ -877,7 +929,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811241587}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f103c3133b8cf741b6429e2edae4e8d, type: 3}
   m_Name: 
@@ -973,8 +1025,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1811241588}
-  - {fileID: 925966587}
-  - {fileID: 1730692097}
+  - {fileID: 762820722}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1006,7 +1057,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2231f2b2dc9ebca4c8ddacb18d7e8f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seatsOnShip:
-  - {fileID: 1730692096}
-  - {fileID: 925966586}
-  controllersFromSeats: []
