@@ -36,7 +36,6 @@ public class GunnerController : MonoBehaviour
     {
         if (canShoot)
             StartCoroutine("Shoot");
-           
     }
 
     IEnumerator Shoot()

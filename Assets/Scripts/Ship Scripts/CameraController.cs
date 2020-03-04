@@ -4,41 +4,50 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target;
+
     public float distance = 400.0f;
     public Vector3 offsetFromTarget = new Vector3(0f, 0f, 0f);
+    public Transform[] seatCameras;
+    public Transform player;
 
-    ShipController shipController;
+    //ShipController shipController;
 
     private float currentX = 0.0f;
     private float currentY = 0.0f;
     //private float sensitivityX = 4.0f;
     //private float sensitivityy = 1.0f;
 
+    private int currentSeat = 0;
+
+    private Transform target;
+
     private const float Y_ANGLE_MIN = -50.0f;
     private const float Y_ANGLE_MAX = 50.0f;
+   
 
 
     void Start()
     {
-        SetCameraTarget(target);
+        SetCameraTarget(player);
     }
+
+    private void changeSeatCamera()
+    {
+        currentSeat += 1;
+        if (currentSeat == seatCameras.Length)
+        {
+            currentSeat = 0;
+        }
+        SetCameraTarget(seatCameras[currentSeat]);
+    }
+
 
     public void SetCameraTarget(Transform t)
     {
         target = t;
 
-        if (target != null)
-        {
-            if (target.GetComponent<ShipController>())
-            {
-                shipController = target.GetComponent<ShipController>();
-            }
-            else
-                Debug.Log("Cameras target character doesn't have controller");
-        }
-        else
-            Debug.Log("Camera needs target");
+        if (target == null)
+        Debug.Log("Camera needs target");
     }
 
     private void Update()
@@ -53,6 +62,11 @@ public class CameraController : MonoBehaviour
         MoveToTarget();
         LookAtTarget();
         
+    }
+
+    private void getInput()
+    {
+        //get input to change seat
     }
 
     void MoveToTarget()
