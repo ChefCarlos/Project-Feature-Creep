@@ -16,13 +16,12 @@ public class PilotController : MonoBehaviour
     public float currentRotateSpeed = 0f;
 
   
-    Rigidbody rbody;
-    public float forwardInput, turnInput, rotateInput, tiltInput;
+    Rigidbody shipBody;
+    private float forwardInput, turnInput, rotateInput, tiltInput = 0;
 
     void Start()
     {
-        rbody = ship.GetComponent<Rigidbody>();
-        forwardInput = turnInput = rotateInput = tiltInput = 0;
+        shipBody = ship.GetComponent<Rigidbody>();
     }
 
     void GetInputs()
@@ -42,14 +41,14 @@ public class PilotController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Accelerate();
+        //Accelerate();
     }
 
     void Accelerate()
     {
         currentForwardSpeed = movementController(currentForwardSpeed, forwardInput, accelerateSpeed, maxForwardSpeed,10);
 
-        rbody.velocity = transform.forward * currentForwardSpeed;
+        shipBody.velocity = transform.forward * currentForwardSpeed;
     }
 
     void Rotate()
@@ -59,11 +58,13 @@ public class PilotController : MonoBehaviour
         currentRotateSpeed = movementController(currentRotateSpeed, rotateInput, turnSpeed, maxTurnSpeed,2);
 
 
-        float yaw = currentYawSpeed  * Time.deltaTime;
-        float pitch = currentPitchSpeed  * Time.deltaTime;
-        float rotate = currentRotateSpeed  * Time.deltaTime;
+        //float yaw = currentYawSpeed  * Time.deltaTime;
+        //float pitch = currentPitchSpeed  * Time.deltaTime;
+        float rotate = 10 * Time.deltaTime;
+        //float rotate = currentRotateSpeed  * Time.deltaTime;
 
-        ship.transform.Rotate(-pitch, yaw, rotate);
+        //ship.transform.Rotate(-pitch, yaw, rotate);
+        ship.transform.Rotate(0, 0, rotate);
     }
 
     private float movementController(float currMoveSpeed, float input, float moveRate, float maxMoveSpeed, float forwardOrTurningDigit)

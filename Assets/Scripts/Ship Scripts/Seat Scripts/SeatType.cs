@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum SeatType
 {
+    None,
     Pilot,
     Gunner
 }

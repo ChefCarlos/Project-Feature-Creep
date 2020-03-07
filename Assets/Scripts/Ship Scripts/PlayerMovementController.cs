@@ -4,36 +4,37 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    public float mouseSensitivty = 100f;
+    private Rigidbody playerBody;
 
-    private float forwardInput;
-    private float strafeInput;
+    private float forwardInput, strafeInput = 0;
 
-    float xRotation = 0f;
+    public float moveSpeed = 12f;
     
     void Start()
     {
+        playerBody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
-        
     }
-
-
 
     void getInput()
     {
-
+        forwardInput = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        strafeInput = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivty * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivty * Time.deltaTime;
+        getInput();
+    }
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+    void MovePlayer()
+    {
+        transform.Translate(strafeInput, 0f, forwardInput);
     }
 }
